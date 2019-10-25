@@ -108,7 +108,7 @@
 	if (p == NULL) return -1;
 
 	printf("Unesite ime, prezime i godinu rodenja:\n");
-	scanf(" %s %s %d\n", p->ime, p->prezime, &p->godina_rod);
+	scanf(" %s %s %d", p->ime, p->prezime, &p->godina_rod);
 
 	return 0;
   }
