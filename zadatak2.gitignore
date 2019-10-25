@@ -1,71 +1,72 @@
  
-  #define _CRT_SECURE_NO_WARNINGS
-   
-  #include <stdio.h>
-  #include <stdlib.h>
-  #include <string.h>
+ 
+#define _CRT_SECURE_NO_WARNINGS
 
-  #define D 20
-  #define duzina 1024
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
- struct student;
- typedef struct student  _STUDENT;
- typedef struct student *position;
+#define dulj 20
+#define velicina 1024
 
-  struct student {
-	 char ime[D];
-	 char prezime[D];
-	 int godina_rod;
-	 position next;
+struct student;
+typedef struct student  _STUDENT;
+typedef struct student *position;
 
-   };
+struct student {
+	char ime[dulj];
+	char prezime[dulj];
+	int godina_rod;
+	position next;
 
- int odabir();
- int stvori(position);
- int unesi(position);
- int ispis(position);
- int dodajElp(position);
- int dodajElk(position);
- int brisi(position); 
+};
 
- position trazi(position);
+int izbor();
+int stv_list(position);
+int unesi(position);
+int ispis(position);
+int add_first(position);
+int add_end(position);
+int remove(position);
 
-
-   int main(void) 
-  {
-	
-	 _STUDENT head;
-	 int k = 0;
-	 int j = 0;
-	 position studentF = NULL;
-	 head.next = NULL;
+position trazi(position);
 
 
-	while (k != 5)
+int main(void)
+{
+
+	_STUDENT head;
+	int c = 0;
+	int j = 0;
+	position stud_F = NULL;
+	head.next = NULL;
+
+
+	while (c != 5)
 	{
-		k = 0;
-		k = odabir();
+		c = 0;
+		c = izbor();
 
-		if (k == 1)
+		if (c == 1)
 		{
-			dodajElp(&head);
+			add_first(&head);
 		}
-		else if (k == 2)
+		else if (c == 2)
 		{
 			ispis(head.next);
 		}
-		else if (k == 3)
+		else if (c == 3)
 		{
-			dodajElk(&head);
+			add_end(&head);
 		}
-		else if (k == 4)
+		else if (c == 4)
 		{
-			studentF = trazi(head.next);
-			if (studentF != NULL)
-				printf("\nTrazeni student je: %s %s %d\n", studentF->ime, studentF->prezime, studentF->godina_rod);
+			stud_F = trazi(head.next);
+			if (stud_F != NULL)
+				printf("\nTrazeni student je: %s %s %d\n", stud_F->ime, stud_F->prezime, stud_F->godina_rod);
 			else printf("\nTrazeni student nije pronaden.\n");
 		}
-		else if (k == 5)
+		else if (c == 5)
 		{
 			continue;
 		}
@@ -75,50 +76,51 @@
 	return 0;
 }
 
-  int odabir()
-  {
+int izbor()
+{
 	int n = 0;
 
-	printf("Odaberite redni broj funkcije koju zelite koristiti\n");
-	printf("1. Dodaj novi element na pocetak liste\n");
+	printf("Funkcija : \n");
+	printf("1. Dodaj na pocetak\n");
 	printf("2. Ispis\n");
-	printf("3. Dodaj novi element na kraj\n");
-	printf("4. Pronadi element u listi(po prezimenu)\n");
-	printf("5. Izlaz iz programa\n");
+	printf("3. Dodaj na kraj\n");
+	printf("4. Pronadi element(prezime)\n");
+	printf("5. Izlaz\n");
 
 	scanf(" %d", &n);
 	return n;
-  }
+}
 
-  int stvori(position *head)
-  {
+int stv_list(position *head)
+{
 	position q = NULL;
 
 	*head = (position)malloc(sizeof(_STUDENT));
 	if (*head == NULL) return -1;
 
 	q = *head;
-	q -> next = NULL;
+	q->next = NULL;
 
 	return 0;
-  }
+}
 
-  int unesi(position p)
-  {
-	if (p == NULL) return -1;
+int unesi(position p)
+{
+	if (p == NULL)
+		return -1;
 
-	printf("Unesite ime, prezime i godinu rodenja:\n");
+	printf("Ime, prezime, godina rodenja :\n");
 	scanf(" %s %s %d", p->ime, p->prezime, &p->godina_rod);
 
 	return 0;
-  }
+}
 
-   int dodajElp(position p)
-  {
+int add_first(position p)
+{
 	position q = NULL;
 	int k = -1;
 
-	k = stvori(&q);
+	k = stv_list(&q);
 	if (k == -1)
 	{
 		printf("Greska");
@@ -136,10 +138,19 @@
 	p->next = q;
 
 	return 0;
-    }
+}
 
-   int ispis(position p) 
-   {
+ int add_end(position p)
+{
+	if (p == NULL) return NULL;
+
+	while (p->next != NULL)
+		p = p->next;
+
+	return add_first(p);
+}
+ int ispis(position p)
+{
 	if (p == NULL)
 		printf("Lista je prazna\n");
 	else
@@ -153,32 +164,25 @@
 		}
 	}
 	return 0;
-   }
+}
 
-   int dodajElk(position p)
-   {
-	if (p == NULL) return NULL;
+    position trazi(position p)
+{
+	char* prezime;
 
-	while (p->next != NULL)
-		p = p->next;
-
-	return dodajElp(p);
-    }
-
-   position trazi(position p)
-   {
-	char* prez;
-
-	prez = (char*)malloc(duzina * sizeof(char));
-	if (prez == NULL) return NULL;
-	memset(prez, '\0', duzina);
+	prezime = (char*)malloc(velicina * sizeof(char));
+	
+	if (prezime == NULL) return NULL;
+	
+	memset(prezime, '\0', velicina);
 
 	printf("Unesite prezime: ");
-	scanf(" %s", prez);
+	
+	scanf(" %s", prezime);
 
-	while ((p != NULL) && strcmp(p->prezime, prez) != 0)
+	while ((p != NULL) && strcmp(p->prezime, prezime) != 0)
 		p = p->next;
-	free(prez);
+	free(prezime);
 
 	return p;
-   }
+}
