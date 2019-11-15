@@ -188,7 +188,7 @@ Pok Presjek(Pok head1, Pok head2, Pok head)
 		else if(head1->broj < head2->broj)
 			head2 = head2->next;
 
-
+else{
 			temp->broj = head1->broj;
 			temp->next = head->next;
 			head->next = temp;
@@ -197,7 +197,7 @@ Pok Presjek(Pok head1, Pok head2, Pok head)
 			head1 = head1->next;
 			head2 = head2->next;
 		}
-	
+	}
 
 	return head;
 }
