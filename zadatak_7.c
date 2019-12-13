@@ -1,3 +1,7 @@
+koristi: sscanf
+         %n za čitanje iz buffera
+	 fgetc umjesto fscanf
+
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <stdio.h>
