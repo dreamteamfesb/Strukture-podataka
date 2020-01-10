@@ -156,13 +156,16 @@ Pok brisi_el(int br, Pok root)
 			free(root);
 			return temp;
 		}
-
+               else
+	       {
 		Pok temp = NULL;
 
 		temp = trazi_min(root->desno);
 		root->broj = temp->broj;
 		root->desno = brisi_el(temp->broj, root->desno);
+	       }
 	}
+	
 
 	return root;
 }
